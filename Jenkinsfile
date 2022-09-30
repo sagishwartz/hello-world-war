@@ -3,11 +3,11 @@ pipeline {
   stages {
     stage('checkout_code') {
       steps {
-        git(url: 'https://github.com/sagishwartz/hello-world-war.git', branch: 'dev', changelog: true, credentialsId: 'github2', poll: true)
+        git(url: 'https://github.com/sagishwartz/hello-world-war.git', branch: 'dev', credentialsId: 'github')
       }
     }
 
-    stage('error') {
+    stage('git_clone') {
       steps {
         sh 'git clone https://github.com/sagishwartz/infra-schwartz.git'
       }
