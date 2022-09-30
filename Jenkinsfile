@@ -12,16 +12,7 @@ pipeline {
       steps {
         sh 'git clone https://github.com/sagishwartz/infra-schwartz.git'
       }
-      
-     stage('build_war') {
-       mvn compile
-   }
-
-   
-     stage('test_war') {
-       mvn test
-   }
-   }
+    }
 
   }
 }
