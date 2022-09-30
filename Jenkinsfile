@@ -14,5 +14,17 @@ pipeline {
       }
     }
 
+    stage('maven_build') {
+      steps {
+        sh 'mvn compile '
+      }
+    }
+
+    stage('maven_test') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+
   }
 }
