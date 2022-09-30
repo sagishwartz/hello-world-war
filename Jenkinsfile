@@ -3,6 +3,7 @@ pipeline {
   stages {
     stage('checkout_code') {
       steps {
+        cleanWs()
         git(url: 'https://github.com/sagishwartz/hello-world-war.git', branch: 'dev', credentialsId: 'github')
       }
     }
