@@ -28,8 +28,8 @@ pipeline {
 
     stage('SQ') {
       steps {
-        withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'sqa_092669f06513ff63c8458bda3a1d3cebc3d725e4', envOnly: true) {
-          sh 'mvn clean verify sonar:sonar'
+         withSonarQubeEnv(installationName:'sonarqube') {
+      sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sagishwartz_hello-world-war_AYOaCKmrGTlWuwPpLrza"
         }
 
       }
