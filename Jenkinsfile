@@ -26,7 +26,7 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('SQ') {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'sqa_092669f06513ff63c8458bda3a1d3cebc3d725e4', envOnly: true) {
           sh 'mvn clean verify sonar:sonar'
