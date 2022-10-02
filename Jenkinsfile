@@ -11,6 +11,11 @@ pipeline {
     stage('git_clone') {
       steps {
         sh 'git clone https://github.com/sagishwartz/infra-schwartz.git'
+        dir(path: 'infra-schwartz') {
+          sh 'git checkout dev'
+          sh 'cp Dockerfile /var/lib/jenkins/workspace/hello-world-war_master'
+        }
+
       }
     }
 
@@ -28,10 +33,16 @@ pipeline {
 
     stage('SQ') {
       steps {
-         withSonarQubeEnv(installationName:'sonarqube') {
-      sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sagishwartz_hello-world-war_AYOaCKmrGTlWuwPpLrza"
+        withSonarQubeEnv('sonarqube') {
+          sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sagishwartz_hello-world-war_AYOaCKmrGTlWuwPpLrza'
         }
 
+      }
+    }
+
+    stage('docker_build_tag') {
+      steps {
+        sh 'docker build -t helloworld:$BUILD_NUMBER .'
       }
     }
 
