@@ -34,7 +34,7 @@ pipeline {
     stage('SQ') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sagishwartz_hello-world-war_AYOaCKmrGTlWuwPpLrza'
+          sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=sagishwartz_hello-world-war_AYSV3avHOv5A8kH7'
         }
 
       }
