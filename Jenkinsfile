@@ -33,7 +33,8 @@ pipeline {
 
     stage('SQ') {
       steps {
-        withSonarQubeEnv('sonarqube') {
+        withSonarQubeEnv('installationName: 'SQ', envOnly: true') 
+           {
           sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=final_project'
         }
 
