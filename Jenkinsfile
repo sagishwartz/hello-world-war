@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "sagishwartz/final"
+        registryCredential = 'docker_hub'
+        dockerImage = ''
+    }
   agent any
   stages {
     stage('checkout_code') {
@@ -45,6 +50,17 @@ pipeline {
         sh 'docker build -t helloworld:$BUILD_NUMBER .'
       }
     }
+
+    stage('Deploy our image') {
+        steps {
+            script {
+                docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                }
+            }
+        }
+    }
+    } 
 
   }
 }
