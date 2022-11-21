@@ -13,7 +13,7 @@ pipeline {
         sh 'git clone https://github.com/sagishwartz/infra-schwartz.git'
         dir(path: 'infra-schwartz') {
           sh 'git checkout dev'
-          sh 'cp Dockerfile /var/lib/jenkins/workspace/hello-world-war_master'
+          sh 'cp Dockerfile /var/lib/jenkins/workspace/final/infra-schwartz'
         }
 
       }
