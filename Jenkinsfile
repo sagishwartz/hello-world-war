@@ -61,9 +61,13 @@ pipeline {
             }
         }
     }
+    stage('terraform folder') {
+        steps{
+            sh 'cd /var/lib/jenkins/workspace/final/infra-schwartz/'
+            }
+        }
     stage('terraform format check') {
         steps{
-            sh 'sh cd /var/lib/jenkins/workspace/final/infra-schwartz/'
             sh 'terraform fmt'
             }
         }
