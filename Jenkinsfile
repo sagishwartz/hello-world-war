@@ -61,13 +61,15 @@ pipeline {
             }
         }
     }
-    stage('terraform folder') {
-        steps{
-            sh 'cd /var/lib/jenkins/workspace/final/infra-schwartz/'
-            }
-        }
+      stage('checkout_code_Terraform') {
+      steps {
+        cleanWs()
+        git(url: 'https://github.com/sagishwartz/infra-schwartz.git', branch: 'main', credentialsId: 'github')
+      }
+    }
     stage('terraform format check') {
         steps{
+            sh 'sh cd /var/lib/jenkins/workspace/final/infra-schwartz/'
             sh 'terraform fmt'
             }
         }
