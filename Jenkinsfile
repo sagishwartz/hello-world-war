@@ -4,6 +4,9 @@ pipeline {
         registryCredential = 'docker_hub'
     }
   agent any
+  tools {
+       terraform 'terraform'
+    }
   stages {
     stage('checkout_code') {
       steps {
@@ -59,12 +62,20 @@ pipeline {
             }
         }
     }
-      stage('Terrafrom_deploy') {
-        steps {
-            sh 'cd /var/lib/jenkins/workspace/final/infra-schwartz'
-            sh 'sudo -uterraform init'
-            sh 'sudo -u terraform apply'
+    stage('terraform format check') {
+        steps{
+            sh 'terraform fmt'
+            }
         }
-    }
+    stage('terraform Init') {
+        steps{
+            sh 'terraform init'
+            }
+        }
+    stage('terraform apply') {
+        steps{
+            sh 'terraform apply --auto-approve'
+            }
+        }
   }
 }
