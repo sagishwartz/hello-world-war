@@ -56,7 +56,6 @@ pipeline {
         steps {
             script {
                 docker.withRegistry( '', registryCredential ) {
-                    sh "sudo chmod 666 /var/run/docker.sock"
                     sh "docker push sagishwartz/final:$BUILD_NUMBER"
                 }
             }
