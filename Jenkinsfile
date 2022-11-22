@@ -2,7 +2,6 @@ pipeline {
   environment {
         registry = "sagishwartz/final"
         registryCredential = 'docker_hub'
-        dockerImage = ''
     }
   agent any
   stages {
@@ -47,23 +46,18 @@ pipeline {
 
     stage('docker_build_tag') {
       steps {
-        sh 'docker build -t helloworld:$BUILD_NUMBER .'
+        sh 'docker build -t sagishwartz/final:$BUILD_NUMBER .'
       }
     }
 
-    stage('Deploy our image') {
+    stage('push_image') {
         steps {
             script {
                 docker.withRegistry( '', registryCredential ) {
-                    dockerImage.push()
+                    sh "docker push sagishwartz/final:$BUILD_NUMBER"
                 }
             }
         }
-    }
-        stage('Remove Unused docker image') {
-            steps{
-                sh "docker rmi $registry:$BUILD_NUMBER"
-      }
     }
   
   }
