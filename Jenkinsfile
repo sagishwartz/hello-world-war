@@ -63,7 +63,7 @@ pipeline {
         steps {
             sh 'cd /var/lib/jenkins/workspace/final/infra-schwartz'
             sh 'terraform init'
-            sh 'apply'
+            sh 'terraform apply'
         }
     }
   }
