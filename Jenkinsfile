@@ -63,7 +63,7 @@ pipeline {
     }
     stage('terraform format check') {
         steps{
-            sh 'sh cd /var/lib/jenkins/workspace/final/infra-schwartz'
+            sh 'sh cd /var/lib/jenkins/workspace/final/infra-schwartz/'
             sh 'terraform fmt'
             }
         }
