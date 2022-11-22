@@ -62,8 +62,8 @@ pipeline {
       stage('Terrafrom_deploy') {
         steps {
             sh 'cd /var/lib/jenkins/workspace/final/infra-schwartz'
-            sh 'sudo terraform init'
-            sh 'sudo terraform apply'
+            sh 'sudo -uterraform init'
+            sh 'sudo -u terraform apply'
         }
     }
   }
