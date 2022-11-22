@@ -59,6 +59,12 @@ pipeline {
             }
         }
     }
-  
+      stage('Terrafrom_deploy') {
+        steps {
+            sh cd '/var/lib/jenkins/workspace/final/infra-schwartz'
+            sh terraform init
+            sh apply
+        }
+    }
   }
 }
