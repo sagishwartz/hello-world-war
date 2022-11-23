@@ -82,5 +82,10 @@ pipeline {
             sh 'terraform apply --auto-approve'
             }
         }
+    stage('Deploy hellowrold') {
+        steps{
+            sh 'kubectl apply -f helloworld_deployment.yml'
+            }
+        }
   }
 }
