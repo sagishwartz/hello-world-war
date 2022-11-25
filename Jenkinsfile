@@ -87,8 +87,8 @@ pipeline {
             script{
                 cluster_name = sh (script: "terraform output cluster_name", returnStdout: true).trim()
                 region = sh (script: "terraform output region", returnStdout: true).trim()
-                sh 'aws eks update-kubeconfig --region ${region} --name ${cluster_name}'
-                sh 'kubectl apply -f helloworld_deployment.yml'
+                sh "aws eks update-kubeconfig --region ${region} --name ${cluster_name}"
+                sh "kubectl apply -f helloworld_deployment.yml"
             }
             }
         }
