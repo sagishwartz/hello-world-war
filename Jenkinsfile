@@ -63,7 +63,6 @@ pipeline {
     }
       stage('checkout_code_Terraform') {
       steps {
-        cleanWs()
         git(url: 'https://github.com/sagishwartz/terraform-provision-eks-cluster.git', branch: 'main', credentialsId: 'github')
       }
     }
