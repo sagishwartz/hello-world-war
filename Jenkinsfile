@@ -8,13 +8,13 @@ pipeline {
     }
   agent any
   stages {
-    stage('checkout_code') {
+    stage('Checkout_code') {
       steps {
         cleanWs()
         git(url: 'https://github.com/sagishwartz/hello-world-war.git', branch: 'dev', credentialsId: 'github')
       }
     }
-    stage('git_clone') {
+    stage('Git_clone') {
       steps {
         sh 'git clone https://github.com/sagishwartz/infra-schwartz.git'
         dir(path: 'infra-schwartz') {
@@ -27,11 +27,11 @@ pipeline {
 
     stage('maven_build') {
       steps {
-        sh 'mvn compile '
+        sh 'Mvn_compile '
       }
     }
 
-    stage('maven_test') {
+    stage('Maven_test') {
       steps {
         sh 'mvn test'
       }
@@ -46,13 +46,13 @@ pipeline {
       }
     }
 
-    stage('docker_build_tag') {
+    stage('Docker_build_tag') {
       steps {
         sh 'docker build -t sagishwartz/final:$BUILD_NUMBER .'
       }
     }
 
-    stage('push_image') {
+    stage('Push_image') {
         steps {
             script {
                 docker.withRegistry( '', registryCredential ) {
@@ -61,28 +61,28 @@ pipeline {
             }
         }
     }
-      stage('checkout_code_Terraform') {
+      stage('Checkout_code_Terraform') {
       steps {
         cleanWs()
         git(url: 'https://github.com/sagishwartz/terraform-provision-eks-cluster.git', branch: 'main', credentialsId: 'github')
       }
     }
-    stage('terraform format check') {
+    stage('Terraform_format_check') {
         steps{
             sh 'terraform fmt'
             }
         }
-    stage('terraform Init') {
+    stage('Terraform_init') {
         steps{
             sh 'terraform init'
             }
         }
-    stage('terraform apply') {
+    stage('Terraform_apply') {
         steps{
             sh 'terraform apply --auto-approve'
             }
         }
-    stage('Deploy hellowrold') {
+    stage('Deploy_hellowrold') {
         steps{
             script{
                 cluster_name = sh (script: "terraform output cluster_name", returnStdout: true).trim()
@@ -92,5 +92,12 @@ pipeline {
             }
             }
         }
+    stage('Deploy_prom_opt') {
+        steps{
+            sh 'kubectl create namespace monitoring'
+            sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
+            sh 'helm repo update'
+            sh 'helm upgrade --namespace monitoring --install kube-stack-prometheus prometheus-community/kube-prometheus-stack --set prometheus-node-exporter.hostRootFsMount.enabled=false'
+            }
   }
 }
